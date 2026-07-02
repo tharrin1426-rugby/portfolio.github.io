@@ -12,6 +12,25 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
 
   <!-- ============================================================
+       CONSENT MODE DEFAULT — must load BEFORE the GTM snippet.
+       Analytics storage defaults to "denied" until the visitor
+       makes an explicit choice, or until a Global Privacy Control
+       (GPC) signal is detected and honored as an opt-out (required
+       under CCPA/CPRA and several other US state privacy laws).
+       ============================================================ -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ window.dataLayer.push(arguments); }
+    gtag('consent', 'default', {
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      analytics_storage: 'denied',
+      wait_for_update: 500
+    });
+  </script>
+
+  <!-- ============================================================
        GOOGLE TAG MANAGER — Replace GTM-XXXXXXX with your GTM ID
        ============================================================ -->
   <script>
@@ -331,13 +350,65 @@
   <footer class="site-footer">
     <div class="container footer-inner">
       <p>© <span id="footer-year"></span> Your Name. Built with HTML, CSS & JS.</p>
-      <a href="https://github.com/tharrin1426-rugby/portfolio" target="_blank" rel="noopener"
-         class="footer-source" onclick="trackEvent('footer_source_click','github')">
-        View Source on GitHub →
-      </a>
+      <div class="footer-links">
+        <a href="https://github.com/tharrin1426-rugby/portfolio" target="_blank" rel="noopener"
+           class="footer-source" onclick="trackEvent('footer_source_click','github')">
+          View Source on GitHub →
+        </a>
+        <a href="privacy-policy.html" class="footer-consent-link">Privacy Policy</a>
+        <a href="#" class="footer-consent-link" data-consent-action="reopen-preferences" onclick="return false;">Cookie Preferences</a>
+      </div>
     </div>
   </footer>
 
+  <!-- ============================================================  COOKIE CONSENT  -->
+  <div class="consent-banner" id="consent-banner" role="dialog" aria-live="polite" aria-label="Cookie consent" hidden>
+    <div class="consent-banner-inner">
+      <p class="consent-text">
+        This site uses cookies for analytics. We only activate non-essential tracking
+        after you consent. See our <a href="privacy-policy.html">Privacy Policy</a> for
+        details, including your rights under GDPR and applicable US state privacy laws.
+      </p>
+      <div class="consent-actions">
+        <button type="button" class="btn btn-ghost btn-sm" data-consent-action="open-preferences">Manage Preferences</button>
+        <button type="button" class="btn btn-ghost btn-sm" data-consent-action="reject-all">Reject Non-Essential</button>
+        <button type="button" class="btn btn-primary btn-sm" data-consent-action="accept-all">Accept All</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="consent-modal-overlay" id="consent-modal" hidden>
+    <div class="consent-modal" role="dialog" aria-modal="true" aria-labelledby="consent-modal-title">
+      <h2 id="consent-modal-title">Cookie Preferences</h2>
+      <p class="consent-modal-intro">
+        Necessary cookies are always on because the site can't function without them.
+        You can change your choice anytime via "Cookie Preferences" in the footer.
+      </p>
+
+      <div class="consent-category">
+        <div class="consent-category-header">
+          <span>Necessary</span>
+          <input type="checkbox" checked disabled aria-label="Necessary cookies (always on)" />
+        </div>
+        <p>Required for core site functionality. Cannot be disabled.</p>
+      </div>
+
+      <div class="consent-category">
+        <div class="consent-category-header">
+          <span>Analytics</span>
+          <input type="checkbox" id="consent-analytics" aria-label="Analytics cookies" />
+        </div>
+        <p>Helps us understand how visitors use this site (Google Analytics via GTM).</p>
+      </div>
+
+      <div class="consent-modal-actions">
+        <button type="button" class="btn btn-ghost btn-sm" data-consent-action="close-preferences">Cancel</button>
+        <button type="button" class="btn btn-primary btn-sm" data-consent-action="save-preferences">Save Preferences</button>
+      </div>
+    </div>
+  </div>
+
   <script src="main.js"></script>
+  <script src="consent.js"></script>
 </body>
 </html>
