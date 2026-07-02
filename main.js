@@ -153,7 +153,7 @@ document.addEventListener('click', function (e) {
     const body    = encodeURIComponent(
       'Name: ' + name + '\nEmail: ' + email + '\n\n' + message
     );
-    window.location.href = 'mailto:your@email.com?subject=' + subject + '&body=' + body;
+    window.location.href = 'mailto:invictus.marketing.td@gmail.com?subject=' + subject + '&body=' + body;
 
     status.style.color = '#00C2CB';
     status.textContent = 'Opening your mail client…';
